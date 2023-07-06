@@ -70,8 +70,12 @@ def extract_images_from_pdf(fname, imgdir="./output", min_width=400, min_height=
         os.mkdir(imgdir)
 
     t0 = time.time()
-    doc = fitz.open(fname)
-    page_count = doc.page_count  # number of pages
+    try:
+        doc = fitz.open(fname)
+        page_count = doc.page_count  # number of pages
+    except:
+        doc = None
+        page_count = 0
 
     xreflist = []
     imglist = []
@@ -161,9 +165,12 @@ def make_md(f, dirname, filename, nimages=3, keywords=[]):
     f.write(f"__結果__ {dict['result']}\n")
 
     pdfname = f"{dirname}/paper.pdf"
-    img_cropped = get_half(pdfname)
-    img_cropped.save(f"{dirname}/half.png", "PNG")
-    
+    try:
+        img_cropped = get_half(pdfname)
+        img_cropped.save(f"{dirname}/half.png", "PNG")
+    except:
+        pass
+
     f.write("\n---\n")
     f.write('<!-- _class: info -->\n') 
     f.write(f'![width:1400]({dirname}/half.png)\n')
