@@ -28,8 +28,8 @@ def get_summary(result):
     print("### input text", text)
     #print("### input prompt", prompt)
     response = openai.ChatCompletion.create(
-                #model="gpt-3.5-turbo",
-                model='gpt-4',
+                model="gpt-3.5-turbo",
+                #model='gpt-4',
                 messages=[
                     {'role': 'system', 'content': prompt},
                     {'role': 'user', 'content': text}
