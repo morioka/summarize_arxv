@@ -103,22 +103,16 @@ def main(query, dir='./xmls', num_papers=3, from_year=2017, max_results=100):
     if not os.path.exists(dir):  # make subfolder if necessary
         os.mkdir(dir)
 
-    new_result_list = []
-    for result in result_list:
-        id = result.entry_id.replace("http://", "").replace("/", "-")
-        dirpath = f"{dir}/{id}"
-        if not os.path.isfile(f"{dirpath}/paper.xml"):
-            new_result_list.append(result)
-        else:
-            del result
-    result_list = new_result_list
-
     results = random.sample(result_list, k=num_papers) if num_papers > 0 and len(result_list) > num_papers else result_list
 
     for i, result in enumerate(results):
         try:
             id = result.entry_id.replace("http://", "").replace("/", "-")
             dirpath = f"{dir}/{id}"
+
+            if os.path.isfile(f"{dirpath}/paper.xml"):
+                continue
+
             dict = get_paper_info(result, dirpath=dirpath)
             dict['paper']['query'] = query
 
