@@ -8,6 +8,7 @@ arXiv の論文を検索してPDFと書誌データ、chatGPTによる要約情�
 ```python
 openai.api_key = 'sk-....'
 ```
+または環境変数 `OPENAI_API_KEY` を設定する。
 
 ## uasge:
 
